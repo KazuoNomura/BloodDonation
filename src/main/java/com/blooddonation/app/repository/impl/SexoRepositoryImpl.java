@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SexoRepositoryImpl
-        extends GenericRepository<SexoModel, Sexo, Long, SexoMapper> implements ISexoRepository {
+        extends GenericRepository<SexoModel, Sexo, Long> implements ISexoRepository {
     
 }

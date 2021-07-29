@@ -17,14 +17,14 @@ public class RegistroDoacaoController {
     @Autowired
     private DoacaoBusiness doacaoBusiness;
 
-//    @PostMapping(path = "/doacoes", produces = "application/json")
-//    public @ResponseBody
-//    ResponseEntity<Object> post(@RequestBody final DoacaoDTO request){
-//
-//        System.out.println(LOG_CLASS + "POST");
-//
-//        return ResponseEntity.status(HttpStatus.CREATED).body(doacaoBusiness.inclusao(request));
-//    }
+    @PostMapping(path = "/doacoes", produces = "application/json")
+    public @ResponseBody
+    ResponseEntity<Object> post(@RequestBody final DoacaoDTO request){
+
+        System.out.println(LOG_CLASS + "POST");
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(doacaoBusiness.inclusao(request));
+    }
 //
 //    @GetMapping(path = "/doacoes", produces = "application/json")
 //    public @ResponseBody

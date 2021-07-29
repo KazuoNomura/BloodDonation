@@ -1,37 +1,54 @@
 package com.blooddonation.app.model;
 
-import javax.persistence.*;
+import com.sun.istack.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Getter
+@Setter
 @Entity
-@Table(name = "dbep001.pessoa")
-public class PessoaModel {
+@Table(name = "pessoa", schema = "dbep001")
+public class PessoaModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name="id_pessoa", nullable = false, columnDefinition = "INT(5)")
     private Long id;
 
-    @Column(name="nome")
+    @NotNull
+    @Column(name="nome", nullable = false, columnDefinition = "VARCHAR(20)")
     private String nome;
 
-    @Column(name="sobrenome")
+    @NotNull
+    @Column(name="sobrenome", nullable = false, columnDefinition = "VARCHAR(20)")
     private String sobrenome;
 
-    @Column(name="cpf")
+    @NotNull
+    @Column(name="cpf", nullable = false, columnDefinition = "VARCHAR(11)")
     private String cpf;
 
-    @Column(name="rg")
+    @NotNull
+    @Column(name="rg", nullable = false, columnDefinition = "VARCHAR(9)")
     private String rg;
 
-    //@Column(name="idEndereco")
-    //private Endereco endereco;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name="id_endereco", referencedColumnName = "id_endereco")
+    private EnderecoModel endereco;
 
-    //@Column(name="idTelefone")
-    //private Telefone telefone;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name="id_telefone", referencedColumnName = "id_telefone")
+    private TelefoneModel telefone;
 
-    //@Column(name="idSexo")
-    //private Sexo sexo;
+    @NotNull
+    @JoinColumn(name="id_sexo", referencedColumnName = "id_sexo")
+    private SexoModel sexo;
 
-    //@Column(name="idTipoSanguineo")
-    //private TipoSanguineo tipo;
+    @NotNull
+    @JoinColumn(name="id_tipo", referencedColumnName = "id_tipo")
+    private TipoSanguineoModel tipo;
 }

@@ -8,6 +8,9 @@ import lombok.Setter;
 @Setter
 public class LocalDoacaoDTO {
 
+    @JsonProperty(value = "id")
+    private String id;
+
     @JsonProperty(value = "horario_funcionamento", required = true)
     private String funcionamento;
 

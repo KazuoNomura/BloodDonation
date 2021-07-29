@@ -8,6 +8,9 @@ import lombok.Setter;
 @Setter
 public class EnderecoDTO {
 
+    @JsonProperty(value = "id")
+    private String id;
+
     @JsonProperty(value = "logradouro", required = true)
     private String logradouro;
 

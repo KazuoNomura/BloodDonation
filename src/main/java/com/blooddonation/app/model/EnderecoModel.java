@@ -5,15 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "endereco", schema = "dbep001")
-public class EnderecoModel {
+public class EnderecoModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="id_endereco", nullable = false, columnDefinition = "INT(5)")
     private Long id;
 
@@ -41,6 +42,6 @@ public class EnderecoModel {
     @Column(name="numero", nullable = false, columnDefinition = "VARCHAR(10)")
     private String numero;
 
-    @Column(name="complemento", nullable = false, columnDefinition = "VARCHAR(10)")
+    @Column(name="complemento", columnDefinition = "VARCHAR(20)")
     private String complemento;
 }

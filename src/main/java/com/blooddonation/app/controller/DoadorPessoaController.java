@@ -2,10 +2,13 @@ package com.blooddonation.app.controller;
 
 import com.blooddonation.app.business.PessoaBusiness;
 import com.blooddonation.app.domain.DTO.PessoaDTO;
+import com.blooddonation.app.domain.Pessoa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("blood_donation/v1")
@@ -28,47 +31,41 @@ public class DoadorPessoaController {
 
     @GetMapping(path = "/doadores", produces = "application/json")
     public @ResponseBody
-    ResponseEntity<Object> getDoadores(){
+    ResponseEntity<Object> getDoadores(@RequestParam(required = false, value = "tipo_sanguineo") Integer tipoSanguineo, @RequestParam(required = false, value = "sexo") Integer sexo){
 
         System.out.println(LOG_CLASS + "GET");
 
-        return ResponseEntity.status(HttpStatus.OK).body(pessoaBusiness.getAll());
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaBusiness.getAllByType(tipoSanguineo, sexo));
     }
 
-//    @GetMapping(path = "/doadores", produces = "application/json")
-//    public @ResponseBody
-//    ResponseEntity<Object> getDoadoresPorTipo(@RequestParam(required = false, value = "tipo_sanguineo") Integer tipoSanguineo){
-//
-//        System.out.println(LOG_CLASS + "GET");
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(pessoaBusiness.getAllByType(tipoSanguineo));
-//    }
+    @PatchMapping(path = "/doadores/", produces = "application/json")
+    public @ResponseBody
+    ResponseEntity<Object> update(@RequestBody final PessoaDTO request){
 
-//    @GetMapping(path = "/doadores/{cpf}", produces = "application/json")
-//    public @ResponseBody
-//    ResponseEntity<Object> findByCPF(@PathVariable(value = "cpf") String cpf){
-//
-//        System.out.println(LOG_CLASS + "GET");
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(pessoaBusiness.getByCpf(cpf));
-//    }
-//
-//    @PatchMapping(path = "/doadores/{cpf}", produces = "application/json")
-//    public @ResponseBody
-//    ResponseEntity<Object> updateByCPF(@RequestBody final PessoaDTO request, @PathVariable(value = "cpf") String cpf){
-//
-//        System.out.println(LOG_CLASS + "GET");
-//
-//        return ResponseEntity.status(HttpStatus.ACCEPTED).body(pessoaBusiness.updateByCpf(request, cpf));
-//    }
-//
-//    @DeleteMapping(path = "/doadores/{cpf}", produces = "application/json")
-//    public @ResponseBody
-//    ResponseEntity<Object> deleteByCPF(@PathVariable(value = "cpf") String cpf){
-//
-//        System.out.println(LOG_CLASS + "GET");
-//
-//        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(pessoaBusiness.deleteByCpf(cpf));
-//    }
+        System.out.println(LOG_CLASS + "PATCH");
+
+        Optional<Pessoa> domain = pessoaBusiness.findById(request.getId());
+        if(domain.isPresent()) {
+
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(pessoaBusiness.update(request));
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND");
+    }
+
+    @DeleteMapping(path = "/doadores/{id}", produces = "application/json")
+    public @ResponseBody
+    ResponseEntity<Object> deleteById(@PathVariable(value = "id") String id){
+
+        System.out.println(LOG_CLASS + "DELETE");
+        Optional<Pessoa> domain = pessoaBusiness.findById(id);
+        if(domain.isPresent()) {
+
+            pessoaBusiness.delete(id);
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Deletado com sucesso");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND");
+    }
 
 }

@@ -17,5 +17,5 @@ public class DoacaoDTO {
     private Long codigo_localDoacao;
 
     @JsonProperty(value = "registro", required = true)
-    private LocalDate registro;
+    private String registro;
 }

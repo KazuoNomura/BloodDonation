@@ -1,16 +1,24 @@
 package com.blooddonation.app.mapper;
 
 import com.blooddonation.app.domain.Telefone;
-import com.blooddonation.app.mapper.configurations.DefaultMapperConfiguration;
 import com.blooddonation.app.model.TelefoneModel;
-import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
-@Mapper(config = DefaultMapperConfiguration.class)
-public interface TelefoneMapper extends GenericMapper<TelefoneModel, Telefone>{
+@Component
+public class TelefoneMapper{
 
-    //@Mapping()
-    TelefoneModel toEntity(Telefone domain);
+    public TelefoneModel toEntity(Telefone domain) {
+        TelefoneModel model = new TelefoneModel();
+        model.setId(domain.getId());
+        model.setNumero(domain.getNumero());
+        return model;
+    }
 
-    Telefone toDomain(TelefoneModel model);
+    public Telefone toDomain(TelefoneModel model) {
+        Telefone domain = new Telefone();
+        domain.setId(model.getId());
+        domain.setNumero(model.getNumero());
+        return domain;
+    }
 
 }

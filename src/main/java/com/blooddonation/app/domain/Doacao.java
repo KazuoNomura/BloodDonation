@@ -1,17 +1,20 @@
 package com.blooddonation.app.domain;
 
+import com.blooddonation.app.model.LocalDoacaoModel;
+import com.blooddonation.app.model.PessoaModel;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
 public class Doacao {
 
-    private Long codigo_doador;
+    private Long id;
 
-    private Long codigo_localDoacao;
+    private PessoaModel doador;
 
-    private LocalDate registro;
+    private LocalDoacaoModel localDoacao;
+
+    private String registro;
+
 }

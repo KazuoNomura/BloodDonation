@@ -1,17 +1,14 @@
 package com.blooddonation.app.mapper;
 
 import com.blooddonation.app.domain.Doacao;
-import com.blooddonation.app.mapper.configurations.DefaultMapperConfiguration;
 import com.blooddonation.app.model.DoacaoModel;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 
-@Mapper(config = DefaultMapperConfiguration.class)
-public interface DoacaoMapper extends GenericMapper<DoacaoModel, Doacao>{
+@Component
+public class DoacaoMapper {
 
-    //@Mapping(target = "")
-    DoacaoModel toEntity(Doacao domain);
+    public DoacaoModel toEntity(Doacao domain);
 
-    Doacao toDomain(DoacaoModel model);
+    public Doacao toDomain(DoacaoModel model);
 
 }

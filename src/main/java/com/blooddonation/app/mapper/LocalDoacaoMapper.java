@@ -1,18 +1,39 @@
 package com.blooddonation.app.mapper;
 
 import com.blooddonation.app.domain.LocalDoacao;
-import com.blooddonation.app.mapper.configurations.DefaultMapperConfiguration;
 import com.blooddonation.app.model.LocalDoacaoModel;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@Mapper(uses = {EnderecoMapper.class, TelefoneMapper.class }, config = DefaultMapperConfiguration.class)
-public interface LocalDoacaoMapper extends GenericMapper<LocalDoacaoModel, LocalDoacao>{
+@Component
+public class LocalDoacaoMapper{
 
-    @Mapping(target = "", ignore = true)
-    LocalDoacaoModel toEntity(LocalDoacao domain);
+    @Autowired
+    private TelefoneMapper telefoneMapper;
 
-    @Mapping(target = "", ignore = true)
-    LocalDoacao toDomain(LocalDoacaoModel model);
+    @Autowired
+    private EnderecoMapper enderecoMapper;
+
+    public LocalDoacaoModel toEntity(LocalDoacao domain){
+        LocalDoacaoModel model = new LocalDoacaoModel();
+        model.setId(domain.getId());
+        model.setFuncionamento(domain.getFuncionamento());
+        if(domain.getTelefone() != null)
+            model.setTelefone(telefoneMapper.toEntity(domain.getTelefone()));
+        if(domain.getEndereco() != null)
+            model.setEndereco(enderecoMapper.toEntity(domain.getEndereco()));
+        return model;
+    }
+
+    public LocalDoacao toDomain(LocalDoacaoModel model){
+        LocalDoacao domain = new LocalDoacao();
+        domain.setId(model.getId());
+        domain.setFuncionamento(model.getFuncionamento());
+        if(model.getTelefone() != null)
+            domain.setTelefone(telefoneMapper.toDomain(model.getTelefone()));
+        if(model.getEndereco() != null)
+            domain.setEndereco(enderecoMapper.toDomain(model.getEndereco()));
+        return domain;
+    }
 
 }

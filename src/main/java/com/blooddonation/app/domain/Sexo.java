@@ -7,5 +7,7 @@ import lombok.Setter;
 @Setter
 public class Sexo {
 
-    private int codigo;
+    private int id;
+
+    private String sigla;
 }

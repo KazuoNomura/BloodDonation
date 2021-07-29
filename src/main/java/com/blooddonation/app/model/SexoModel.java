@@ -13,8 +13,8 @@ import java.io.Serializable;
 public class SexoModel implements Serializable {
 
     @Id
-    @Column(name="id", nullable = false, columnDefinition = "INT(1)")
-    private Long idSexo;
+    @Column(name="id_sexo", nullable = false, columnDefinition = "INT(1)")
+    private Long id;
 
     @Column(name="sigla", nullable = false, columnDefinition = "CHAR(1)")
     private String sigla;

@@ -7,5 +7,7 @@ import lombok.Setter;
 @Setter
 public class TipoSanguineo {
 
-    private int codigo;
+    private int id;
+
+    private String tipo;
 }

@@ -8,6 +8,9 @@ import lombok.Setter;
 @Setter
 public class TelefoneDTO {
 
+    @JsonProperty(value = "id")
+    private String id;
+
     @JsonProperty(value = "numero_telefone", required = true)
     private String numero;
 }

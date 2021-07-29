@@ -8,6 +8,9 @@ import lombok.Setter;
 @Setter
 public class PessoaDTO {
 
+    @JsonProperty(value = "id")
+    private String id;
+
     @JsonProperty(value = "nome", required = true)
     private String nome;
 

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class GenericRepository<ENTITY, DOMAIN, KEY, MAPPER extends GenericMapper<ENTITY, DOMAIN>> {
+public class GenericRepository<ENTITY, DOMAIN, KEY> {
 
     private static final String LOG_CODE = "REPOSITORY";
 
@@ -28,7 +28,7 @@ public class GenericRepository<ENTITY, DOMAIN, KEY, MAPPER extends GenericMapper
 
     private Class<KEY> typeOfKeyEntity;
 
-    private Class<MAPPER> typeOfMapper;
+    //private Class<MAPPER> typeOfMapper;
 
     //Constructors
 
@@ -41,7 +41,7 @@ public class GenericRepository<ENTITY, DOMAIN, KEY, MAPPER extends GenericMapper
             this.typeOfEntity = (Class<ENTITY>) genericTypes[0];
             this.typeOfDomain = (Class<DOMAIN>) genericTypes[1];
             this.typeOfKeyEntity = (Class<KEY>) genericTypes[2];
-            this.typeOfMapper = (Class<MAPPER>) genericTypes[3];
+            //this.typeOfMapper = (Class<MAPPER>) genericTypes[3];
 
         } catch(RuntimeException e){
             System.out.println(LOG_CODE + "[Erro Generic Repository" + e);
@@ -50,44 +50,44 @@ public class GenericRepository<ENTITY, DOMAIN, KEY, MAPPER extends GenericMapper
 
     //Monitorable
     @Transactional
-    public DOMAIN save(DOMAIN domain){
-        ENTITY entity = (ENTITY) getMapper().toEntity(domain);
+    public ENTITY save(ENTITY entity){
+        //ENTITY entity = (ENTITY) getMapper().toEntity(domain);
         getEntityManager().persist(entity);
         getEntityManager().flush();
 
-        return (DOMAIN) getMapper().toDomain(entity);
+        return entity;
     }
 
     //Monitorable
     @Transactional
-    public List<DOMAIN> saveList(List<DOMAIN> domains){
-        if (CollectionUtils.isEmpty(domains))
+    public List<ENTITY> saveList(List<ENTITY> entities){
+        if (CollectionUtils.isEmpty(entities))
             return Collections.emptyList();
         
-        List<ENTITY> entities = (List<ENTITY>) getMapper().toModels(domains);
+        //List<ENTITY> entities = (List<ENTITY>) getMapper().toModels(domains);
         entities.forEach(entity -> getEntityManager().persist(entity));
         getEntityManager().flush();
         
-        return (List<DOMAIN>) getMapper().toDomains(entities);
+        return entities;
 
     }
 
     //Monitorable
     @Transactional
-    public DOMAIN update(DOMAIN domain){
-        ENTITY entity = (ENTITY) getMapper().toEntity(domain);
+    public ENTITY update(ENTITY entity){
+        //ENTITY entity = (ENTITY) getMapper().toEntity(domain);
         entity = getEntityManager().merge(entity);
         getEntityManager().flush();
-        return (DOMAIN) getMapper().toDomain(entity);
+        return entity;
 
     }
 
     //Monitorable
     @Transactional
-    public Optional<DOMAIN> findById(KEY id){
+    public Optional<ENTITY> findById(KEY id){
         ENTITY entity = getEntityManager().find(this.typeOfEntity, id);
         if(entity != null){
-            return (Optional<DOMAIN>) Optional.of(getMapper().toDomain(entity));
+            return Optional.of(entity);
         }
         return Optional.empty();
 
@@ -95,11 +95,11 @@ public class GenericRepository<ENTITY, DOMAIN, KEY, MAPPER extends GenericMapper
 
     //Monitorable
     @Transactional
-    public Optional<DOMAIN> findByCompositeKey(DOMAIN key){
-        ENTITY entity = (ENTITY) getMapper().toEntity(key);
-        entity = getEntityManager().find(this.typeOfEntity, entity);
+    public Optional<ENTITY> findByCompositeKey(ENTITY key){
+        //ENTITY entity = (ENTITY) getMapper().toEntity(key);
+        ENTITY entity = getEntityManager().find(this.typeOfEntity, key);
         if(entity != null){
-            return (Optional<DOMAIN>) Optional.of(getMapper().toDomain(entity));
+            return Optional.of(entity);
         }
         return Optional.empty();
 
@@ -113,14 +113,14 @@ public class GenericRepository<ENTITY, DOMAIN, KEY, MAPPER extends GenericMapper
     }
 
     //Monitorable
-    @Transactional
-    public List<DOMAIN> findAll(){
+    //@Transactional
+    public List<ENTITY> findAll(){
         List resultList = entityManager
                 .createQuery("Select t from :entityName t")
                 .setParameter("entityName", this.typeOfEntity.getSimpleName())
                 .getResultList();
         if(resultList != null && !resultList.isEmpty()){
-            return getMapper().toDomains(resultList);
+            return resultList;
         }
         return Collections.emptyList();
     }
@@ -133,5 +133,5 @@ public class GenericRepository<ENTITY, DOMAIN, KEY, MAPPER extends GenericMapper
 
     protected final Class<KEY> getTypeOfKeyEntity() {return this.typeOfKeyEntity;}
 
-    protected final GenericMapper getMapper() {return BeanUtil.getBean(typeOfMapper);}
+    //protected final GenericMapper getMapper() {return BeanUtil.getBean(typeOfMapper);}
 }

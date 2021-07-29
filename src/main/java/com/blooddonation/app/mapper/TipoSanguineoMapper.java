@@ -1,16 +1,23 @@
 package com.blooddonation.app.mapper;
 
 import com.blooddonation.app.domain.TipoSanguineo;
-import com.blooddonation.app.mapper.configurations.DefaultMapperConfiguration;
 import com.blooddonation.app.model.TipoSanguineoModel;
-import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
-@Mapper(config = DefaultMapperConfiguration.class)
-public interface TipoSanguineoMapper extends GenericMapper<TipoSanguineoModel, TipoSanguineo>{
+@Component
+public class TipoSanguineoMapper{
 
-    //@Mapping()
-    TipoSanguineoModel toEntity(TipoSanguineo domain);
+    public TipoSanguineoModel toEntity(TipoSanguineo domain) {
 
-    TipoSanguineo toDomain(TipoSanguineoModel model);
+        TipoSanguineoModel model = new TipoSanguineoModel();
+        model.setId(Long.valueOf(domain.getId()));
+        return model;
+    }
 
+    public TipoSanguineo toDomain(TipoSanguineoModel model) {
+        TipoSanguineo domain = new TipoSanguineo();
+        domain.setId(model.getId().intValue());
+        domain.setTipo(model.getTipo());
+        return domain;
+    }
 }

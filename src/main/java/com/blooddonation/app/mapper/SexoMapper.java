@@ -1,16 +1,22 @@
 package com.blooddonation.app.mapper;
 
 import com.blooddonation.app.domain.Sexo;
-import com.blooddonation.app.mapper.configurations.DefaultMapperConfiguration;
 import com.blooddonation.app.model.SexoModel;
-import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
-@Mapper(config = DefaultMapperConfiguration.class)
-public interface SexoMapper extends GenericMapper<SexoModel, Sexo>{
+@Component
+public class SexoMapper{
 
-    //@Mapping()
-    SexoModel toEntity(Sexo domain);
+    public SexoModel toEntity(Sexo domain) {
+        SexoModel model = new SexoModel();
+        model.setId(Long.valueOf(domain.getId()));
+        return model;
+    }
 
-    Sexo toDomain(SexoModel model);
-
+    public Sexo toDomain(SexoModel model) {
+        Sexo domain = new Sexo();
+        domain.setId(model.getId().intValue());
+        domain.setSigla(model.getSigla());
+        return domain;
+    }
 }

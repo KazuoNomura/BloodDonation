@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TelefoneRepositoryImpl
-        extends GenericRepository<TelefoneModel, Telefone, Long, TelefoneMapper> implements ITelefoneRepository {
+        extends GenericRepository<TelefoneModel, Telefone, Long> implements ITelefoneRepository {
     
 }

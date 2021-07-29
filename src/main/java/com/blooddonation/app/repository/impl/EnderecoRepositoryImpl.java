@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class EnderecoRepositoryImpl
-        extends GenericRepository<EnderecoModel, Endereco, Long, EnderecoMapper> implements IEnderecoRepository {
+        extends GenericRepository<EnderecoModel, Endereco, Long> implements IEnderecoRepository {
     
 }

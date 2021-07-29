@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class LocalDoacao {
 
+    private Long id;
+
     private String funcionamento;
 
     private Endereco endereco;

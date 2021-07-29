@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class Pessoa {
 
+    private Long id;
+
     private String nome;
 
     private String sobrenome;
