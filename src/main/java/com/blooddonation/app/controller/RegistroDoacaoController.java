@@ -25,40 +25,22 @@ public class RegistroDoacaoController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(doacaoBusiness.inclusao(request));
     }
-//
-//    @GetMapping(path = "/doacoes", produces = "application/json")
-//    public @ResponseBody
-//    ResponseEntity<Object> getDoadores(){
-//
-//        System.out.println(LOG_CLASS + "GET");
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(doacaoBusiness.getAll());
-//    }
-//
-//    @GetMapping(path = "/doacoes", produces = "application/json")
-//    public @ResponseBody
-//    ResponseEntity<Object> getDoacoesPorTipo(@RequestParam(required = false, value = "tipo_sanguineo") Integer tipoSanguineo){
-//
-//        System.out.println(LOG_CLASS + "GET");
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(doacaoBusiness.getAllByType(tipoSanguineo));
-//    }
-//
-//    @PatchMapping(path = "/doacoes/{id}", produces = "application/json")
-//    public @ResponseBody
-//    ResponseEntity<Object> updateById(@RequestBody final DoacaoDTO request, @PathVariable(value = "id") String id){
-//
-//        System.out.println(LOG_CLASS + "GET");
-//
-//        return ResponseEntity.status(HttpStatus.ACCEPTED).body(doacaoBusiness.update(request, id));
-//    }
-//
-//    @DeleteMapping(path = "/doacoes/{id}", produces = "application/json")
-//    public @ResponseBody
-//    ResponseEntity<Object> deleteById(@PathVariable(value = "id") String cpf){
-//
-//        System.out.println(LOG_CLASS + "GET");
-//
-//        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(doacaoBusiness.delete(id));
-//    }
+
+    @GetMapping(path = "/doacoes", produces = "application/json")
+    public @ResponseBody
+    ResponseEntity<Object> getDoadores(@RequestParam(required = false, value = "doador") String doador, @RequestParam(required = false, value = "local") String local){
+
+        System.out.println(LOG_CLASS + "GET");
+
+        return ResponseEntity.status(HttpStatus.OK).body(doacaoBusiness.getAllByType(doador, local));
+    }
+
+    @PatchMapping(path = "/doacoes", produces = "application/json")
+    public @ResponseBody
+    ResponseEntity<Object> updateById(@RequestBody final DoacaoDTO request){
+
+        System.out.println(LOG_CLASS + "GET");
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(doacaoBusiness.update(request));
+    }
 }

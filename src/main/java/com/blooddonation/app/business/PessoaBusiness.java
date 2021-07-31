@@ -60,7 +60,12 @@ public class PessoaBusiness {
     public List<Pessoa> getAllByType(Integer tipoSanguineo, Integer sexo) {
         List<Pessoa> locais = new ArrayList<>();
 
-        if(tipoSanguineo != null){
+        if (sexo != null && tipoSanguineo != null) {
+            List<PessoaModel> models = repository.findAllBySexoAndTipo(Long.valueOf(tipoSanguineo), Long.valueOf(sexo));
+            for (PessoaModel model : models) {
+                locais.add(mapper.toDomain(model));
+            }
+        } else if(tipoSanguineo != null){
             List<PessoaModel> models = repository.findAllByTipo(Long.valueOf(tipoSanguineo));
             for (PessoaModel model : models) {
                 locais.add(mapper.toDomain(model));
@@ -71,11 +76,7 @@ public class PessoaBusiness {
             for (PessoaModel model : models) {
                 locais.add(mapper.toDomain(model));
             }
-        } else if (sexo != null && tipoSanguineo != null) {
-            List<PessoaModel> models = repository.findAllBySexoAndTipo(Long.valueOf(tipoSanguineo), Long.valueOf(sexo));
-            for (PessoaModel model : models) {
-                locais.add(mapper.toDomain(model));
-            }
+
         } else {
             List<PessoaModel> models = repository.findAll();
             for (PessoaModel model : models) {

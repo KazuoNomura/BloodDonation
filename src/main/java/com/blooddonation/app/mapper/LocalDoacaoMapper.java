@@ -18,6 +18,7 @@ public class LocalDoacaoMapper{
         LocalDoacaoModel model = new LocalDoacaoModel();
         model.setId(domain.getId());
         model.setFuncionamento(domain.getFuncionamento());
+        model.setNome(domain.getNome());
         if(domain.getTelefone() != null)
             model.setTelefone(telefoneMapper.toEntity(domain.getTelefone()));
         if(domain.getEndereco() != null)
@@ -29,6 +30,7 @@ public class LocalDoacaoMapper{
         LocalDoacao domain = new LocalDoacao();
         domain.setId(model.getId());
         domain.setFuncionamento(model.getFuncionamento());
+        domain.setNome(model.getNome());
         if(model.getTelefone() != null)
             domain.setTelefone(telefoneMapper.toDomain(model.getTelefone()));
         if(model.getEndereco() != null)

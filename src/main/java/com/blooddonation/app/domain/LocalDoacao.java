@@ -9,6 +9,8 @@ public class LocalDoacao {
 
     private Long id;
 
+    private String nome;
+
     private String funcionamento;
 
     private Endereco endereco;

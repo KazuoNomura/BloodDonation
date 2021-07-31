@@ -9,8 +9,9 @@ public class DoacaoFactory {
     public static Doacao cria(DoacaoDTO dto){
 
         Doacao doacao = new Doacao();
+        if(dto.getId() != null)
+            doacao.setId(Long.valueOf(dto.getId()));
         doacao.setRegistro(dto.getRegistro());
         return doacao;
     }
-
 }

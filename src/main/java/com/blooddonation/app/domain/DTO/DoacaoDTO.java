@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 public class DoacaoDTO {
+
+    @JsonProperty(value = "id")
+    private String id;
 
     @JsonProperty(value = "codigo_doador", required = true)
     private Long codigo_doador;

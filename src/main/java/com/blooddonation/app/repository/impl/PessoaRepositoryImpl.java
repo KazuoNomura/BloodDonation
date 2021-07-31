@@ -65,6 +65,4 @@ public class PessoaRepositoryImpl
         }
         return Collections.emptyList();
     }
-
-
 }

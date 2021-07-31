@@ -19,6 +19,10 @@ public class LocalDoacaoModel implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name="nome", nullable = false, columnDefinition = "VARCHAR(20)")
+    private String nome;
+
+    @NotNull
     @Column(name="funcionamento", nullable = false, columnDefinition = "VARCHAR(20)")
     private String funcionamento;
 

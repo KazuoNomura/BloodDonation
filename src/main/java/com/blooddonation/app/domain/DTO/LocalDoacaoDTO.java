@@ -11,6 +11,9 @@ public class LocalDoacaoDTO {
     @JsonProperty(value = "id")
     private String id;
 
+    @JsonProperty(value = "nome", required = true)
+    private String nome;
+
     @JsonProperty(value = "horario_funcionamento", required = true)
     private String funcionamento;
 
